@@ -264,6 +264,16 @@ exports("GetRules", (function(gm, mode)
      return dim and dim.rules or nil
 end))
 
+exports("AddPlayerToPlayer", function(playerId, toPlayer)
+     if not PlayerBuckets[toPlayer] then
+          print(("[AddPlayerToPlayer]: No dimension found for %(%s)"):format(GetPlayerName(toPlayer), toPlayer))
+          return
+     end
+
+     exports[GetCurrentResourceName()]:AddPlayer(playerId, PlayerBuckets[toPlayer].gamemode, PlayerBuckets[toPlayer]
+     .mode)
+end)
+
 AddEventHandler("playerDropped", (function(reason)
      local src = source
 
