@@ -116,9 +116,7 @@ end))
 
 
 ---@return boolean success?
-exports("RemovePlayer", function(pid, gm, mode)
-     print("[Initial:RemovePlayer]", pid, gm, mode)
-
+exports("RemovePlayer", function(pid, ...)
      local playerData = PlayerBuckets[pid]
      if not playerData then
           mCore.sendMessage(
@@ -159,23 +157,18 @@ exports("RemovePlayer", function(pid, gm, mode)
 
      TriggerEvent("mate-dimManager->PlayerLeft", {
           playerId = pid,
-          gamemode = gm,
+          gamemode = gamemode,
           mode     = mode
      })
 
      TriggerClientEvent("mate-dimManager->PlayerLeft", -1, {
           playerId    = pid,
-          gamemode    = gm,
+          gamemode    = gamemode,
           mode        = mode,
           playerCount = dim.playerCount
      })
 
-     TriggerClientEvent("mate-dimManager->Update", pid, {
-          gm     = gm,
-          mode   = mode,
-          rules  = dim.rules,
-          bucket = dim.bucket
-     })
+     TriggerClientEvent("mate-dimManager->Update", pid, nil)
 
      return true
 end)
